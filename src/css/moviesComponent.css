@@ -1,0 +1,42 @@
+.main-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+.card-container{
+    width: 15%; 
+    margin: 1%;
+}
+
+.card-header{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+}
+
+.card-header-title{
+    display: flex;
+    flex-flow: column;
+    height: 5vh;
+    align-items: flex-start;
+}
+
+.card-ul{
+    list-style-type: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between; 
+}
+
+.card-ul li{
+    width: 25%;
+    display: flex;
+    flex-flow: column;
+}
+
+.icon{font-size: 0.5rem;}

@@ -12,6 +12,10 @@ function App() {
   const [moviesData, setMoviesData] = useState([])
   const [category, setCategory] = useState("")
   const [filter, setFilter] = useState([])
+  const [moviePerPage, setMoviePerPage] = useState(4)
+  const [pageNumber, setPageNumber] = useState(0)
+
+  const pageVisited = pageNumber * moviePerPage
 
   useEffect(() => {
    const storageData = localStorage.getItem('currentMovies')
@@ -29,18 +33,21 @@ function App() {
      fetchData()
    }
   }, [])
-  
 
-  function handleFilterMovies(category) {
-    const filteredMovies = moviesData.filter(movie => movie.category === category)
-    return setMoviesData(filteredMovies)
-  }
-
-  const handleChange = (event) => {
+  const handleChangeCategory = (event) => {
     return setCategory(event.target.value);
+  };
+
+  const handleChangeMoviePerPage = (event) => {
+    return setMoviePerPage(event.target.value);
   };
   
   const categoryList = filter && [...new Set(filter)]
+  const pageCount = Math.ceil(moviesData.length / moviePerPage)
+
+  const changePage = ({selected}) => {
+    setPageNumber(selected)
+  }
 
   console.log("++++++", categoryList)
 
@@ -48,6 +55,20 @@ function App() {
   return (
     <div className="App">
       <header>
+      <FormControl style={{width: "20%"}}>
+          <InputLabel id="demo-simple-select-label">Films par page</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={moviePerPage}
+            label="Films par page"
+            onChange={handleChangeMoviePerPage}
+          >
+            <MenuItem value={4}>Par lot de 4</MenuItem>
+            <MenuItem value={8}>Par lot de 8</MenuItem>
+            <MenuItem value={12}>Par lot de 12</MenuItem>
+          </Select>
+        </FormControl>
         <FormControl style={{width: "20%"}}>
           <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
           <Select
@@ -55,7 +76,7 @@ function App() {
             id="demo-simple-select"
             value={category}
             label="Catégorie"
-            onChange={handleChange}
+            onChange={handleChangeCategory}
           >
             <MenuItem value="">Tous les films</MenuItem>
             {categoryList.map(category => (
@@ -64,7 +85,21 @@ function App() {
           </Select>
         </FormControl>
       </header>
-      <MoviesComponent data={moviesData} category={category} />
+      <MoviesComponent data={moviesData} category={category} pageVisited={pageVisited} moviePerPage={moviePerPage} />
+      <div>
+        <ReactPaginate
+          previousLabel='Précédent'
+          nextLabel="Suivant"
+          pageCount={pageCount}
+          onPageChange={changePage}
+          containerClassName="pagination-container"
+          nextLinkClassName='change-button'
+          previousLinkClassName='change-button'
+          disabledClassName='pagination-disabled'
+          activeClassName='active-page'
+          pageLinkClassName='page-number'
+        />
+      </div>
     </div>
   );
 }

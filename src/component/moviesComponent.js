@@ -7,10 +7,13 @@ import Divider from '@mui/material/Divider';
 import '../css/moviesComponent.css'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import IconButton from '@mui/material/IconButton';
 import Progressbar from './progressbar';
 import Button from '@mui/material/Button';
 
-const MoviesComponent = ({data, category}) => {
+const MoviesComponent = ({data, category, pageVisited, moviePerPage}) => {
+  const [like, setLike] = useState(false)
+  const [disLike, setDisLike] = useState(false)
 
   const handleDeleteMovie = async(id) => {
     const newMovieList = data && await data.filter(movie => movie.id !== id)
@@ -18,7 +21,27 @@ const MoviesComponent = ({data, category}) => {
     return window.location.reload()
   }
 
-  const movieList = category ? data.filter(movie => movie.category === category) : data
+  const toggleLikeButton = (id) => {
+    const likeButton = document.getElementById(id)
+
+    if(likeButton.style.color !== "green"){
+      return likeButton.style.color = "green"
+    }else{
+      return likeButton.style.color = "gray"
+    }
+  }
+
+  const toggleDisLikeButton = (id) => {
+    const disLikeButton = document.getElementById(id)
+
+    if(disLikeButton.style.color !== "red"){
+      return disLikeButton.style.color = "red"
+    }else{
+      return disLikeButton.style.color = "gray"
+    }
+  }
+
+  const movieList = category ? data.filter(movie => movie.category === category).slice(pageVisited, pageVisited + moviePerPage) : data.slice(pageVisited, pageVisited + moviePerPage)
 
   return (
     <div className="main-container">
@@ -39,10 +62,16 @@ const MoviesComponent = ({data, category}) => {
                   <text style={{fontSize: "0.8rem"}}>{data.category}</text>
                 </div>
               <div style={{display: "flex", flexFlow: "row"}}>
-                <div style={{display: "flex", justifyContent: "space-between"}}><ThumbUpIcon /> {data.likes}</div>
-                <div style={{display: "flex", justifyContent: "space-between"}}><ThumbDownAltIcon /> {data.dislikes}</div>
+                <div style={{display: "flex", justifyContent: "space-between", cursor: "pointer"}}>
+                    <ThumbUpIcon fontSize="small" id={data.id} style={{color: 'gray'}} onClick={() => toggleLikeButton(data.id)} />
+                  <text style={{fontSize: "0.8rem"}}>{data.likes}</text>
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", marginLeft: "5%", cursor: "pointer"}}>
+                    <ThumbDownAltIcon fontSize="small" id={`${data.id}dislikes`} style={{color: 'gray'}} onClick={() => toggleDisLikeButton(`${data.id}dislikes`)} />
+                  <text style={{fontSize: "0.8rem"}}>{data.dislikes}</text>
+                </div>
               </div>
-              <Progressbar  />
+              <Progressbar likes={data.likes} sumLikesDislikes={data.likes + data.dislikes}/>
             </div>
           </Typography>
           <Divider />

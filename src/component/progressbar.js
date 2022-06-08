@@ -18,11 +18,11 @@ function LinearProgressWithLabel(props) {
   );
 }
 
-const Progressbar = () => {
-
+const Progressbar = ({likes, sumLikesDislikes}) => {
+  const ratio = likes / sumLikesDislikes * 100
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgressWithLabel value={0} />
+      <LinearProgressWithLabel value={ratio} />
     </Box>
   );
 }

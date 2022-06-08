@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,14 +7,10 @@ import Divider from '@mui/material/Divider';
 import '../css/moviesComponent.css'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import IconButton from '@mui/material/IconButton';
 import Progressbar from './progressbar';
 import Button from '@mui/material/Button';
 
 const MoviesComponent = ({data, category, pageVisited, moviePerPage}) => {
-  const [like, setLike] = useState(false)
-  const [disLike, setDisLike] = useState(false)
-
   const handleDeleteMovie = async(id) => {
     const newMovieList = data && await data.filter(movie => movie.id !== id)
     localStorage.setItem("currentMovies", JSON.stringify(newMovieList))
@@ -61,12 +57,12 @@ const MoviesComponent = ({data, category, pageVisited, moviePerPage}) => {
                   <text><b>{data.title}</b></text>
                   <text style={{fontSize: "0.8rem"}}>{data.category}</text>
                 </div>
-              <div style={{display: "flex", flexFlow: "row", marginBottom: "2vh", alignItems: "flex-end", height: "5vh"}}>
-                <div style={{display: "flex", justifyContent: "space-between", cursor: "pointer"}}>
+              <div className='icon-container'>
+                <div className='icon-box'>
                     <ThumbUpIcon fontSize="small" id={data.id} style={{color: 'gray'}} onClick={() => toggleLikeButton(data.id)} />
                   <text style={{fontSize: "0.8rem"}}>{data.likes}</text>
                 </div>
-                <div style={{display: "flex", justifyContent: "space-between", marginLeft: "5%", cursor: "pointer"}}>
+                <div style={{marginLeft: "5%"}} className='icon-box'>
                     <ThumbDownAltIcon fontSize="small" id={`${data.id}dislikes`} style={{color: 'gray'}} onClick={() => toggleDisLikeButton(`${data.id}dislikes`)} />
                   <text style={{fontSize: "0.8rem"}}>{data.dislikes}</text>
                 </div>

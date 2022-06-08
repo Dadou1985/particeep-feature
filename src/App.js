@@ -49,8 +49,6 @@ function App() {
     setPageNumber(selected)
   }
 
-  console.log("++++++", categoryList)
-
 
   return (
     <div className="App">

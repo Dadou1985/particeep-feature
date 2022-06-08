@@ -44,6 +44,20 @@
     flex-flow: column;
 }
 
+.icon-container{
+    display: flex; 
+    flex-flow: row;
+    margin-bottom: 2vh; 
+    align-items: flex-end;
+    height: 5vh;
+}
+
+.icon-box{
+    display: flex;
+    justify-content: space-between; 
+    cursor: pointer;
+}
+
 .icon-button{color: gray}
 
 

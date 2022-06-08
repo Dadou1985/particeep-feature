@@ -61,7 +61,7 @@ const MoviesComponent = ({data, category, pageVisited, moviePerPage}) => {
                   <text><b>{data.title}</b></text>
                   <text style={{fontSize: "0.8rem"}}>{data.category}</text>
                 </div>
-              <div style={{display: "flex", flexFlow: "row"}}>
+              <div style={{display: "flex", flexFlow: "row", marginBottom: "2vh", alignItems: "flex-end", height: "5vh"}}>
                 <div style={{display: "flex", justifyContent: "space-between", cursor: "pointer"}}>
                     <ThumbUpIcon fontSize="small" id={data.id} style={{color: 'gray'}} onClick={() => toggleLikeButton(data.id)} />
                   <text style={{fontSize: "0.8rem"}}>{data.likes}</text>

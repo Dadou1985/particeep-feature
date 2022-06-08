@@ -15,8 +15,11 @@ header {
   margin-bottom: 1vh;
 }
 
+.header-select {
+  width: 45%
+}
+
 .pagination-container{
-  width: 100%;
   list-style-type: none;
   display: flex;
   justify-content: space-evenly;
@@ -29,6 +32,8 @@ header {
   cursor: pointer;
 }
 
+.change-button:hover{filter: drop-shadow(1px 1px 1px);}
+
 .active-page{
   font-weight: bolder;
   border-bottom: 3px solid black;
@@ -37,4 +42,6 @@ header {
 .page-number{
   cursor: pointer;
 }
+
+.page-number:hover{filter: drop-shadow(1px 1px 1px);}
 

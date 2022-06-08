@@ -55,7 +55,7 @@ function App() {
   return (
     <div className="App">
       <header>
-      <FormControl style={{width: "20%"}}>
+      <FormControl className='header-select'>
           <InputLabel id="demo-simple-select-label">Films par page</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -69,7 +69,7 @@ function App() {
             <MenuItem value={12}>Par lot de 12</MenuItem>
           </Select>
         </FormControl>
-        <FormControl style={{width: "20%"}}>
+        <FormControl className='header-select'>
           <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
           <Select
             labelId="demo-simple-select-label"
